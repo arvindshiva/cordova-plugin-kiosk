@@ -1,4 +1,4 @@
-package jk.cordova.plugin.kiosk;
+package com.edumax.student;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -33,7 +33,7 @@ public class HomeActivity extends Activity {
         setContentView(layout);
     }
     
-    @Override
+   /* @Override
     protected void onResume() {
         super.onResume();
         Timer timer = new Timer();
@@ -68,7 +68,7 @@ public class HomeActivity extends Activity {
             }, 500); // 0.5 second
         }
     }
-    
+    */
     private void startKioskActivity() {
         Intent serviceIntent = new Intent(this, KioskActivity.class);
         startActivity(serviceIntent);

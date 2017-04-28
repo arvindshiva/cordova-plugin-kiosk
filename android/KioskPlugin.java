@@ -1,4 +1,4 @@
-package jk.cordova.plugin.kiosk;
+package com.edumax.student;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -14,8 +14,9 @@ import java.util.Timer;
 import java.util.TimerTask;
 import org.json.JSONArray;
 import org.json.JSONException;
-import jk.cordova.plugin.kiosk.KioskActivity;
+import com.edumax.student.KioskActivity;
 import org.json.JSONObject;
+import android.content.Context;
 
 public class KioskPlugin extends CordovaPlugin {
     
@@ -23,12 +24,15 @@ public class KioskPlugin extends CordovaPlugin {
     
     public static final String IS_IN_KIOSK = "isInKiosk";
     
+        private Context ctx = null;
+
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
         try {
+
             if (IS_IN_KIOSK.equals(action)) {
                 
-                callbackContext.success(Boolean.toString(KioskActivity.running));
+                callbackContext.success(Boolean.toString(PrefUtils.isKioskModeActive(ctx)));
                 return true;
                 
             } else if (EXIT_KIOSK.equals(action)) {
@@ -40,7 +44,8 @@ public class KioskPlugin extends CordovaPlugin {
                 if (intent.resolveActivity(cordova.getActivity().getPackageManager()) != null) {
                     cordova.getActivity().startActivity(chooser);
                 }
-                
+                PrefUtils.setKioskModeActive(false, ctx);
+
                 callbackContext.success();
                 return true;
             }
